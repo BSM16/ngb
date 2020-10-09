@@ -22,41 +22,39 @@ function throttle(b,a){var c=undefined;var d=undefined;return function(){var e=+
 if(typeof firstText=="undefined"){firstText="First"}if(typeof lastText=="undefined"){lastText="Last"}var noPage;var currentPage;var currentPageNo;var postLabel;pagecurrentg();function looppagecurrentg(f){var d="";pageNumber=parseInt(numPages/2);if(pageNumber==numPages-pageNumber){numPages=pageNumber*2+1}pageStart=currentPageNo-pageNumber;if(pageStart<1){pageStart=1}lastPageNo=parseInt(f/perPage)+1;if(lastPageNo-1==f/perPage){lastPageNo=lastPageNo-1}pageEnd=pageStart+numPages-1;if(pageEnd>lastPageNo){pageEnd=lastPageNo}d+="<span class='showpageOf'>Page "+currentPageNo+" of "+lastPageNo+"</span>";var e=parseInt(currentPageNo)-1;if(currentPageNo>1){if(currentPage=="page"){d+='<span class="showpage firstpage"><a href="'+home_page+'">'+firstText+"</a></span>"}else{d+='<span class="displaypageNum firstpage"><a href="/search/label/'+postLabel+"?&max-results="+perPage+'">'+firstText+"</a></span>"}}if(currentPageNo>2){if(currentPageNo==3){if(currentPage=="page"){d+='<span class="showpage"><a href="'+home_page+'">'+prevText+"</a></span>"}else{d+='<span class="displaypageNum"><a href="/search/label/'+postLabel+"?&max-results="+perPage+'">'+prevText+"</a></span>"}}else{if(currentPage=="page"){d+='<span class="displaypageNum"><a href="#" onclick="redirectpage('+e+');return false">'+prevText+"</a></span>"}else{d+='<span class="displaypageNum"><a href="#" onclick="redirectlabel('+e+');return false">'+prevText+"</a></span>"}}}if(pageStart>1){if(currentPage=="page"){d+='<span class="displaypageNum"><a href="'+home_page+'">1</a></span>'}else{d+='<span class="displaypageNum"><a href="/search/label/'+postLabel+"?&max-results="+perPage+'">1</a></span>'}}if(pageStart>2){d+="<span class='showpagePoint'>...</span>"}for(var g=pageStart;g<=pageEnd;g++){if(currentPageNo==g){d+='<span class="showpagePoint">'+g+"</span>"}else{if(g==1){if(currentPage=="page"){d+='<span class="displaypageNum"><a href="'+home_page+'">1</a></span>'}else{d+='<span class="displaypageNum"><a href="/search/label/'+postLabel+"?&max-results="+perPage+'">1</a></span>'}}else{if(currentPage=="page"){d+='<span class="displaypageNum"><a href="#" onclick="redirectpage('+g+');return false">'+g+"</a></span>"}else{d+='<span class="displaypageNum"><a href="#" onclick="redirectlabel('+g+');return false">'+g+"</a></span>"}}}}if(pageEnd<lastPageNo-1){d+="<span class='showpagePoint'>...</span>"}if(pageEnd<lastPageNo){if(currentPage=="page"){d+='<span class="displaypageNum"><a href="#" onclick="redirectpage('+lastPageNo+');return false">'+lastPageNo+"</a></span>"}else{d+='<span class="displaypageNum"><a href="#" onclick="redirectlabel('+lastPageNo+');return false">'+lastPageNo+"</a></span>"}}var a=parseInt(currentPageNo)+1;if(currentPageNo<(lastPageNo-1)){if(currentPage=="page"){d+='<span class="displaypageNum"><a href="#" onclick="redirectpage('+a+');return false">'+nextText+"</a></span>"}else{d+='<span class="displaypageNum"><a href="#" onclick="redirectlabel('+a+');return false">'+nextText+"</a></span>"}}if(currentPageNo<lastPageNo){if(currentPage=="page"){d+='<span class="displaypageNum lastpage"><a href="#" onclick="redirectpage('+lastPageNo+');return false">'+lastText+"</a></span>"}else{d+='<span class="displaypageNum lastpage"><a href="#" onclick="redirectlabel('+lastPageNo+');return false">'+lastText+"</a></span>"}}var c=document.getElementsByName("pageArea");var b=document.getElementById("blog-pager");for(var h=0;h<c.length;h++){c[h].innerHTML=d}if(c&&c.length>0){d=""}if(b){b.innerHTML=d}}function totalcountdata(a){var c=a.feed;var b=parseInt(c.openSearch$totalResults.$t,10);looppagecurrentg(b)}function pagecurrentg(){var a=urlactivepage;if(a.indexOf("/search/label/")!=-1){if(a.indexOf("?updated-max")!=-1){postLabel=a.substring(a.indexOf("/search/label/")+14,a.indexOf("?updated-max"))}else{postLabel=a.substring(a.indexOf("/search/label/")+14,a.indexOf("?&max"))}}if(a.indexOf(".html")==-1){if(a.indexOf("/search/label/")==-1){currentPage="page";if(urlactivepage.indexOf("#PageNo=")!=-1){currentPageNo=urlactivepage.substring(urlactivepage.indexOf("#PageNo=")+8,urlactivepage.length)}else{currentPageNo=1}if(a.indexOf("q=")==-1){document.write('<script src="'+home_page+'feeds/posts/summary?max-results=1&alt=json-in-script&callback=totalcountdata"><\/script>')}else{document.write('<script src="'+home_page+"feeds/posts/summary?q="+a.split("?")[1].split("q=")[1].split("&")[0]+'&alt=json-in-script&callback=totalcountdata"><\/script>')}}else{currentPage="label";if(a.indexOf("&max-results=")==-1){perPage=20}if(urlactivepage.indexOf("#PageNo=")!=-1){currentPageNo=urlactivepage.substring(urlactivepage.indexOf("#PageNo=")+8,urlactivepage.length)}else{currentPageNo=1}document.write('<script src="'+home_page+"feeds/posts/summary/-/"+postLabel+'?alt=json-in-script&callback=totalcountdata&max-results=1" ><\/script>')}}}function redirectpage(a){jsonstart=(a-1)*perPage;noPage=a;var b=document.getElementsByTagName("head")[0];var c=document.createElement("script");c.type="text/javascript";if(urlactivepage.indexOf("?q=")==-1){c.setAttribute("src",home_page+"feeds/posts/summary?start-index="+jsonstart+"&max-results=1&alt=json-in-script&callback=finddatepost")}else{c.setAttribute("src",home_page+"feeds/posts/summary?start-index="+jsonstart+"&alt=json-in-script&q="+urlactivepage.split("?")[1].split("q=")[1].split("&")[0]+"&callback=finddatepost")}b.appendChild(c)}function redirectlabel(a){jsonstart=(a-1)*perPage;noPage=a;var b=document.getElementsByTagName("head")[0];var c=document.createElement("script");c.type="text/javascript";c.setAttribute("src",home_page+"feeds/posts/summary/-/"+postLabel+"?start-index="+jsonstart+"&max-results=1&alt=json-in-script&callback=finddatepost");b.appendChild(c)}function finddatepost(c){post=c.feed.entry[0];var a=post.published.$t.substring(0,19)+post.published.$t.substring(23,29);var d=encodeURIComponent(a);if(currentPage=="page"){if(urlactivepage.indexOf("?q=")==-1){var b="/search?updated-max="+d+"&max-results="+perPage+"#PageNo="+noPage}else{var b="/search?updated-max="+d+"&q="+urlactivepage.split("?")[1].split("q=")[1].split("&")[0]+"&max-results="+perPage+"#PageNo="+noPage}}else{var b="/search/label/"+postLabel+"?updated-max="+d+"&max-results="+perPage+"#PageNo="+noPage}location.href=b};
 function getRandomInt(c,d){return Math.floor(Math.random()*(d-c+1))+c}function shuffleArray(f){var g=f.length,h,e;if(g===0){return false}while(--g){h=Math.floor(Math.random()*(g+1));e=f[g];f[g]=f[h];f[h]=e}return f}function x_randp(d){var c=getRandomInt(1,(d.feed.openSearch$totalResults.$t-x_ranres));document.write('<script src="'+x_homeresx+"/feeds/posts/summary?alt=json-in-script&orderby=updated&start-index="+c+"&max-results="+x_ranres+'&callback=randomPosts"><\/script>')}function randomPosts(i){var l,n=document.getElementById(x_getid),j=shuffleArray(i.feed.entry),q="<h2>Recomended</h2><div>";for(var o=0,m=j.length;o<m;o++){for(var p=0,r=j[o].link.length;p<r;p++){l=(j[o].link[p].rel=="alternate")?j[o].link[p].href:"#"}q+='<a href="'+l+'">'+j[o].title.$t+"</a>"}n.innerHTML=q+"</div>"}document.write('<script src="'+x_homeresx+'/feeds/posts/summary?alt=json-in-script&max-results=0&callback=x_randp"><\/script>');
 $(document).ready(function(){$('b[name="backgrund"]').before($("#iamgex-backgg").html());$("#iamgex-backgg").html("");$('b[name="coverxz"]').before($("#iamgex-cover").html());$("#iamgex-cover").html("");$('div[name="infromx"]').before($("#cuk-infromx").html());$("#cuk-infromx").html("");$('b[name="labelsxpost"]').before($("#show-labelsxpost").html());$("#show-labelsxpost").html("")});
-/*!
- * wjs-section v2.1.0
- * Copyright 2018 zkreations
- * Developed by José Gregorio (fb.com/JGMateran)
- * Licensed under MIT (github.com/zkreations/wjs-sections/blob/master/LICENSE)
- */
 'use strict';
 var callbacks = {},
     defaults = {
        homeUrl: "https://nimegamibatch.blogspot.com/", // Url blog
        image: 'img/no-img-blogger.png', // Imagen por defecto
        className: '.wjs-section',
-       localeDate: 'es-ES', //Idioma
-       snippet: 100, // Cantidad texto para el resumen
-       imgSize: 'w300', // Cantidad texto para el resumen
+       localeDate: 'en-US', //Bahasa
+       snippet: 0, 
+       imgSize: 'w300', 
 };
-//! Core (No modificar) {{
 var section = {
     'expReg': /[swh]\d{2,4}(?:-[swh]\d{2,4})?(?:-c)?/,
     'category': null,
-    'max-results': 6,
+    'max-results': 7,
     template: {
-        default: '<div class="stns-card">' +
-               '<div class="stns-content">' +
-                  '<div class="stns-header">' +
-                     '<a class="stns-image" href="URL"><img src="IMG" /></a>' +
-                  '</div>' +
-                  '<div class="stns-meta">' +
-                     '<a class="stns-title" href="URL">TITLE</a>' +
-                     '<time class="stns-date">TIME</time>' +
-                     '<p class="stns-snippet">SNIPPET</p>' +
-                  '</div>' +
-               '</div>' +
-            '</div>',
-        empty: '<p class="stns-alert">No se han encontrado entradas</p>'
+        default: '<div id="--random-post">' +
+'<ul class="--item">' +
+'<div class="--random-post">' +
+'<div class="_wrapx">' +
+	    '<ul class="--item">' +
+	    '<li>' +
+	    '<div class="--item">' +
+	    '<div class="--label"><span>Complete</span></div>' +
+	    '<a href="URL"><img src="IMG" /><h2><span>TITLE</span></h2></a>' +
+	    '<span class="dett">TIME</span>' +
+	    '</div>' +
+	    '</li>' +
+	    '</ul>' +
+	    '</div>' +
+	    '</div>' +
+'</ul>' +
+'</div>',
+	  empty: '<p class="stns-alert">No se han encontrado entradas</p>'
     }
 };
 
@@ -132,4 +130,3 @@ forEach(document.querySelectorAll(defaults.className), function(index, element) 
         getLabel(element, currentData)
     }
 });
-//!}} Fin del core
