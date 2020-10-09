@@ -30,7 +30,7 @@ var callbacks = {},
        className: '.wjs-section',
        localeDate: 'en-US', //Bahasa
        snippet: 0, 
-       imgSize: 'w300', 
+       imgSize: 'w150-h150-c', 
 };
 var section = {
     'expReg': /[swh]\d{2,4}(?:-[swh]\d{2,4})?(?:-c)?/,
