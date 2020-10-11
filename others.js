@@ -90,12 +90,7 @@ function getLabel(element, data) {
 		    LABEL: data.category,
                     IMG: (img ? img.url : imgHtml ? imgHtml.src : defaults.image).replace(section.expReg, defaults.imgSize),
                     TITLE: post.title.$t,
-                    TIME:  var u = r.published.$t,
-            g = u.substring(0, 4),
-            h = u.substring(5, 7),
-            m = u.substring(8, 10),
-            p = new Array;
-        if (p[1] = "Jan", p[2] = "Feb", p[3] = "Mar", p[4] = "Apr", p[5] = "May", p[6] = "Jun", p[7] = "Jul", p[8] = "Aug", p[9] = "Sep", p[10] = "Oct", p[11] = "Nov", p[12] = "Dec",
+                    TIME:  1 == posts_date && (e = e + p[parseInt(h, 10)] + " " + m + " " + g, S = 1),
                     SNIPPET: body.replace(/<[^>]*>?/g, "").substring(0, defaults.snippet) + "...",
                     URL: function() {
                         var i, link;
