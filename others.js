@@ -87,13 +87,15 @@ function getLabel(element, data) {
                 tempHtml.innerHTML = body;
                 var imgHtml = tempHtml.querySelector("img");
                 html += temp(data.template, {
-			LABEL: data.category,
+		    LABEL: data.category,
                     IMG: (img ? img.url : imgHtml ? imgHtml.src : defaults.image).replace(section.expReg, defaults.imgSize),
                     TITLE: post.title.$t,
-                    TIME: (new Date(post.published.$t)).toLocaleDateString(defaults.localeDate, {
-                        month: "long",
-                        day: "2-digit"
-                    }),
+                    TIME:  var u = r.published.$t,
+            g = u.substring(0, 4),
+            h = u.substring(5, 7),
+            m = u.substring(8, 10),
+            p = new Array;
+        if (p[1] = "Jan", p[2] = "Feb", p[3] = "Mar", p[4] = "Apr", p[5] = "May", p[6] = "Jun", p[7] = "Jul", p[8] = "Aug", p[9] = "Sep", p[10] = "Oct", p[11] = "Nov", p[12] = "Dec",
                     SNIPPET: body.replace(/<[^>]*>?/g, "").substring(0, defaults.snippet) + "...",
                     URL: function() {
                         var i, link;
