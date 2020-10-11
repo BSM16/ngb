@@ -90,7 +90,11 @@ function getLabel(element, data) {
 		    LABEL: data.category,
                     IMG: (img ? img.url : imgHtml ? imgHtml.src : defaults.image).replace(section.expReg, defaults.imgSize),
                     TITLE: post.title.$t,
-                    TIME:  1 == posts_date && (e = e + p[parseInt(h, 10)] + " " + m + " " + g, S = 1),
+                    TIME:  (new Date(post.published.$t)).toLocaleDateString(defaults.localeDate, {
+                        month: "long",
+                        day: "2-digit",
+			year: "4-digit"
+                    }),
                     SNIPPET: body.replace(/<[^>]*>?/g, "").substring(0, defaults.snippet) + "...",
                     URL: function() {
                         var i, link;
