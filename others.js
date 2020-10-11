@@ -91,9 +91,8 @@ function getLabel(element, data) {
                     IMG: (img ? img.url : imgHtml ? imgHtml.src : defaults.image).replace(section.expReg, defaults.imgSize),
                     TITLE: post.title.$t,
                     TIME:  (new Date(post.published.$t)).toLocaleDateString(defaults.localeDate, {
-                        month: "long",
+                        year: "long",
                         day: "2-digit",
-			year: "4-digit"
                     }),
                     SNIPPET: body.replace(/<[^>]*>?/g, "").substring(0, defaults.snippet) + "...",
                     URL: function() {
