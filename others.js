@@ -23,7 +23,7 @@ var section = {
     'category': null,
     'max-results': 7,
     template: {
-        default: '<div id="--random-post">' +
+        default: 
 '<ul class="--item">' +
 '<div class="--random-post">' +
 '<div class="_wrapx">' +
@@ -38,8 +38,7 @@ var section = {
 	    '</ul>' +
 	    '</div>' +
 	    '</div>' +
-'</ul>' +
-'</div>',
+'</ul>',
 	  empty: '<p class="stns-alert">No se han encontrado entradas</p>'
     }
 };
