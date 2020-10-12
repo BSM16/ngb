@@ -12,8 +12,8 @@ $(document).ready(function(){$('b[name="backgrund"]').before($("#iamgex-backgg")
 var callbacks = {},
     defaults = {
        homeUrl: "https://nimegamibatch.blogspot.com/", // Url blog
-       image: 'img/no-img-blogger.png', // Imagen por defecto
-       className: '.wjs-section',
+       image: 'https://2.bp.blogspot.com/-C3Mo0iKKiSw/VGdK808U7rI/AAAAAAAAAmI/W7Ae_dsEVAE/s1600/no-thumb.png', 
+       className: '.related-ngb',
        localeDate: 'en-US', //Bahasa
        snippet: 0, 
        imgSize: 'w150-h200-c', 
