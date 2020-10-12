@@ -39,7 +39,7 @@ var section = {
 	    '</div>' +
 	    '</div>' +
 '</ul>',
-	  empty: '<p class="stns-alert">No se han encontrado entradas</p>'
+	  empty: '<p class="empty">Tidak ada entri yang ditemukan</p>'
     }
 };
 
