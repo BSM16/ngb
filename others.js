@@ -5,6 +5,109 @@ $('#chatango_chat').click(function(){$.ajax({url:"https://rawcdn.githack.com/BSM
 var new_scroll_position=0,last_scroll_position,header=document.getElementById("headerx");
 function throttle(b,a){var c=undefined;var d=undefined;return function(){var e=+new Date();if(c&&e<c+a){clearTimeout(d);d=setTimeout(function(){c=e;b()},a)}else{c=e;b()}}}function onScroll(){if(window.pageYOffset){$$header.classList.add("is-active")}else{$$header.classList.remove("is-active")}}var $$header=document.querySelector("#headerx");window.addEventListener("scroll",throttle(onScroll,25));
 $(document).ready(function(){$('b[name="backgrund"]').before($("#iamgex-backgg").html());$("#iamgex-backgg").html("");$('b[name="coverxz"]').before($("#iamgex-cover").html());$("#iamgex-cover").html("");$('div[name="infromx"]').before($("#cuk-infromx").html());$("#cuk-infromx").html("");$('b[name="labelsxpost"]').before($("#show-labelsxpost").html());$("#show-labelsxpost").html("")});
+var relatedTitles = new Array();
+var relatedTitlesNum = 0;
+var relatedUrls = new Array();
+var thumburl = new Array();
+function related_results_labels_thumbs(h) {
+  for (var g = 0; g < h.feed.entry.length; g++) {
+    var j = h.feed.entry[g];
+    relatedTitles[relatedTitlesNum] = j.title.$t;
+    try {
+      thumburl[relatedTitlesNum] = j.gform_foot.url
+    } catch (f) {
+      s = j.content.$t;
+      a = s.indexOf("<img");
+      b = s.indexOf('src="', a);
+      c = s.indexOf('"', b + 5);
+      d = s.substr(b + 5, c - b - 5);
+      if ((a != -1) && (b != -1) && (c != -1) && (d != "")) {
+        thumburl[relatedTitlesNum] = d
+      } else {
+        thumburl[relatedTitlesNum] = "OOPS"
+      }
+    }
+    if (relatedTitles[relatedTitlesNum].length > 35) {
+      relatedTitles[relatedTitlesNum] = relatedTitles[relatedTitlesNum].substring(0, 35) + "..."
+    }
+    for (var e = 0; e < j.link.length; e++) {
+      if (j.link[e].rel == "alternate") {
+        relatedUrls[relatedTitlesNum] = j.link[e].href;
+        relatedTitlesNum++
+      }
+    }
+  }
+}
+
+function removeRelatedDuplicates_thumbs() {
+  var g = new Array(0);
+  var h = new Array(0);
+  var f = new Array(0);
+  for (var e = 0; e < relatedUrls.length; e++) {
+    if (!contains_thumbs(g, relatedUrls[e])) {
+      g.length += 1;
+      g[g.length - 1] = relatedUrls[e];
+      h.length += 1;
+      f.length += 1;
+      h[h.length - 1] = relatedTitles[e];
+      f[f.length - 1] = thumburl[e]
+    }
+  }
+  relatedTitles = h;
+  relatedUrls = g;
+  thumburl = f
+}
+
+function contains_thumbs(f, h) {
+  for (var g = 0; g < f.length; g++) {
+    if (f[g] == h) {
+      return true
+    }
+  }
+  return false
+}
+
+function printRelatedLabels_thumbs() {
+  for (var e = 0; e < relatedUrls.length; e++) {
+    if ((relatedUrls[e] == currentposturl) || (!(relatedTitles[e]))) {
+      relatedUrls.splice(e, 1);
+      relatedTitles.splice(e, 1);
+      thumburl.splice(e, 1);
+      e--
+    }
+  }
+  var f = Math.floor((relatedTitles.length - 1) * Math.random());
+  var e = 0;
+  if (relatedTitles.length > 0) {
+    document.write("<h1>" + relatedpoststitle + "</h1>")
+  }
+  document.write('<div id="--related" style="clear: both;"/><ul>');
+  while (e < relatedTitles.length && e < 20 && e < maxresults) {
+    document.write('<li><div class="--item"><a ');
+    if (e != 0) {
+      document.write('"')
+    } else {
+      document.write("")
+    }
+    document.write(' href="' + relatedUrls[f] + '"><img class="related_img lazyload" src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="' + thumburl[f] + '"/><h3>' + relatedTitles[f] + "</h3></a></div></li>");
+    if (f < relatedTitles.length - 1) {
+      f++
+    } else {
+      f = 0
+    }
+    e++
+  }
+  document.write("</ul></div>");
+  relatedUrls.splice(0, relatedUrls.length);
+  thumburl.splice(0, thumburl.length);
+  relatedTitles.splice(0, relatedTitles.length)
+};
+if (window.matchMedia("(min-width:728px)").matches) {
+$('#--wrapper').css("margin-top", "50px");
+}
+if (window.matchMedia("(max-width:727px)").matches) {
+$('#--wrapper').css("margin-top", "110px");
+};
 'use strict';
 var callbacks = {},
     defaults = {
