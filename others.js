@@ -3,120 +3,16 @@ $(document).ready(function () {window.addEventListener("scroll",function(b){last
 $('#chatango_chat').click(function(){$.ajax({url:"https://rawcdn.githack.com/BSM16/ngb/30e0a6a0d1b603f6d64c248aea3311df4c263ae6/fly-chat.html",type:"GET",success:function(data){$('#chatango').css({'display':'block'}).html(data)},error:function(){alert("Salah")}})})});
 var new_scroll_position=0,last_scroll_position,header=document.getElementById("headerx");
 function throttle(b,a){var c=undefined;var d=undefined;return function(){var e=+new Date();if(c&&e<c+a){clearTimeout(d);d=setTimeout(function(){c=e;b()},a)}else{c=e;b()}}}function onScroll(){if(window.pageYOffset){$$header.classList.add("is-active")}else{$$header.classList.remove("is-active")}}var $$header=document.querySelector("#headerx");window.addEventListener("scroll",throttle(onScroll,25));
-$(document).ready(function() {
-    $('b[name="coverxz"]').before($("#iamgex-cover").html());
-    $("#iamgex-cover").html("");
-    $('div[name="infromx"]').before($("#cuk-infromx").html());
-    $("#cuk-infromx").html("");
-    $('b[name="labelsxpost"]').before($("#show-labelsxpost").html());
-    $("#show-labelsxpost").html("")
-});
-'use strict';
-var callbacks = {},
-    defaults = {
-       homeUrl: "https://nimegamibatch.blogspot.com/", // Url blog
-       image: 'https://2.bp.blogspot.com/-C3Mo0iKKiSw/VGdK808U7rI/AAAAAAAAAmI/W7Ae_dsEVAE/s1600/no-thumb.png', 
-       className: '.related-ngb',
-       localeDate: 'en-US', //Bahasa
-       snippet: 0, 
-       imgSize: 'w150-h200-c', 
-};
-var section = {
-    'expReg': /[swh]\d{2,4}(?:-[swh]\d{2,4})?(?:-c)?/,
-    'category': null,
-    'max-results': 7,
-    template: {
-        default: 
-'<ul class="--item">' +
-'<div class="--random-post">' +
-'<div class="_wrapx">' +
-	    '<ul class="--item">' +
-	    '<li>' +
-	    '<div class="--item">' +
-	    '<div class="--label"><span>LABEL</span></div>' +
-	    '<a href="URL"><img src="IMG" /><h2><span>TITLE</span></h2></a>' +
-	    '<span class="dett">TIME</span>' +
-	    '</div>' +
-	    '</li>' +
-	    '</ul>' +
-	    '</div>' +
-	    '</div>' +
-'</ul>',
-	  empty: '<p class="empty">Tidak ada entri yang ditemukan</p>'
-    }
-};
-
-function forEach(items, callback) {
-    var i, item;
-    for (i = 0; item = items[i++];)
-        if (false === callback.call(item, i, item)) break;
-    return items
-}
-
-function getCurrentData(element) {
-    var name, value;
-    var obj = {};
-    for (name in section) {
-        value = element.getAttribute("data-" + name);
-        if (value) obj[name] = value
-    }
-    return obj
-}
-
-function temp(content, data) {
-    var name;
-    for (name in data) content = content.replace(new RegExp(name, "g"), data[name]);
-    return content
-}
-
-function getLabel(element, data) {
-    var name;
-    var category = data.category;
-    var callfix = category.replace(/[^A-Z0-9]/ig, '');
-    var script = document.createElement("script");
-    var src = defaults.homeUrl + "/feeds/posts/default?alt=json-in-script&callback=callbacks." + callfix;
-    callbacks[callfix] = function(json) {
-        var i, post;
-        var html = "";
-        var entry = json.feed.entry;
-        if (entry)
-            for (i = 0; post = entry[i++];) {
-                var content = post.content;
-                var summary = post.summary;
-                var body = content ? content.$t : summary.$t;
-                var img = post.media$thumbnail;
-                var tempHtml = document.createElement("div");
-                tempHtml.innerHTML = body;
-                var imgHtml = tempHtml.querySelector("img");
-                html += temp(data.template, {
-		    LABEL: data.category,
-                    IMG: (img ? img.url : imgHtml ? imgHtml.src : defaults.image).replace(section.expReg, defaults.imgSize),
-                    TITLE: post.title.$t,
-                    TIME:  (new Date(post.published.$t)).toLocaleDateString(defaults.localeDate, {
-			year: "numeric",
-                        month: "long",
-                        day: "2-digit"
-                    }),
-                    SNIPPET: body.replace(/<[^>]*>?/g, "").substring(0, defaults.snippet) + "...",
-                    URL: function() {
-                        var i, link;
-                        for (i = 0; link = post.link[i++];)
-                            if (link.rel === "alternate") return link.href
-                    }
-                })
-            } else html += section.template.empty;
-        element.innerHTML = html
-    };
-    for (name in data)
-        if (name !== "template") src += "&" + name + "=" + data[name];
-    script.src = src;
-    document.body.appendChild(script)
-}
-forEach(document.querySelectorAll(defaults.className), function(index, element) {
-    var currentData = getCurrentData(element);
-    if (currentData.category) {
-        if (!currentData["max-results"]) currentData["max-results"] = section["max-results"];
-        currentData.template = section.template["default"];
-        getLabel(element, currentData)
-    }
-});
+$("img.related_img").each(function(){$(this).attr("data-src",$(this).attr("data-src").replace("s1600","w120-h150-c"))});
+$(".coverx img").each(function(){$(this).attr("src",$(this).attr("src").replace(/\/s[0-9]+(\-c)?\//,"/w125-h175-c/"))});
+$(document).ready(function(){$('b[name="coverxz"]').before($("#iamgex-cover").html());$("#iamgex-cover").html("");$('div[name="infromx"]').before($("#cuk-infromx").html());$("#cuk-infromx").html("");$('b[name="labelsxpost"]').before($("#show-labelsxpost").html());$("#show-labelsxpost").html("")});
+'use strict';var callbacks={},defaults={homeUrl:"https://nimegamibatch.blogspot.com/",image:'https://2.bp.blogspot.com/-C3Mo0iKKiSw/VGdK808U7rI/AAAAAAAAAmI/W7Ae_dsEVAE/s1600/no-thumb.png',className:'.related-ngb',localeDate:'en-US',snippet:0,imgSize:'w150-h200-c',};var section={'expReg':/[swh]\d{2,4}(?:-[swh]\d{2,4})?(?:-c)?/,'category':null,'max-results':7,template:{default:'<ul class="--item">'+'<div class="--random-post">'+'<div class="_wrapx">'+'<ul class="--item">'+'<li>'+'<div class="--item">'+'<div class="--label"><span>LABEL</span></div>'+'<a href="URL"><img src="IMG" /><h2><span>TITLE</span></h2></a>'+'<span class="dett">TIME</span>'+'</div>'+'</li>'+'</ul>'+'</div>'+'</div>'+'</ul>',empty:'<p class="empty">Tidak ada entri yang ditemukan</p>'}};function forEach(items,callback){var i,item;for(i=0;item=items[i++];)
+if(!1===callback.call(item,i,item))break;return items}
+function getCurrentData(element){var name,value;var obj={};for(name in section){value=element.getAttribute("data-"+name);if(value)obj[name]=value}
+return obj}
+function temp(content,data){var name;for(name in data)content=content.replace(new RegExp(name,"g"),data[name]);return content}
+function getLabel(element,data){var name;var category=data.category;var callfix=category.replace(/[^A-Z0-9]/ig,'');var script=document.createElement("script");var src=defaults.homeUrl+"/feeds/posts/default?alt=json-in-script&callback=callbacks."+callfix;callbacks[callfix]=function(json){var i,post;var html="";var entry=json.feed.entry;if(entry)
+for(i=0;post=entry[i++];){var content=post.content;var summary=post.summary;var body=content?content.$t:summary.$t;var img=post.media$thumbnail;var tempHtml=document.createElement("div");tempHtml.innerHTML=body;var imgHtml=tempHtml.querySelector("img");html+=temp(data.template,{LABEL:data.category,IMG:(img?img.url:imgHtml?imgHtml.src:defaults.image).replace(section.expReg,defaults.imgSize),TITLE:post.title.$t,TIME:(new Date(post.published.$t)).toLocaleDateString(defaults.localeDate,{year:"numeric",month:"long",day:"2-digit"}),SNIPPET:body.replace(/<[^>]*>?/g,"").substring(0,defaults.snippet)+"...",URL:function(){var i,link;for(i=0;link=post.link[i++];)
+if(link.rel==="alternate")return link.href}})}else html+=section.template.empty;element.innerHTML=html};for(name in data)
+if(name!=="template")src+="&"+name+"="+data[name];script.src=src;document.body.appendChild(script)}
+forEach(document.querySelectorAll(defaults.className),function(index,element){var currentData=getCurrentData(element);if(currentData.category){if(!currentData["max-results"])currentData["max-results"]=section["max-results"];currentData.template=section.template["default"];getLabel(element,currentData)}})
