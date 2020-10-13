@@ -4,11 +4,14 @@ $(document).ready(function () {window.addEventListener("scroll",function(b){last
 $('#chatango_chat').click(function(){$.ajax({url:"https://rawcdn.githack.com/BSM16/ngb/30e0a6a0d1b603f6d64c248aea3311df4c263ae6/fly-chat.html",type:"GET",success:function(data){$('#chatango').css({'display':'block'}).html(data)},error:function(){alert("Salah")}})})});
 var new_scroll_position=0,last_scroll_position,header=document.getElementById("headerx");
 function throttle(b,a){var c=undefined;var d=undefined;return function(){var e=+new Date();if(c&&e<c+a){clearTimeout(d);d=setTimeout(function(){c=e;b()},a)}else{c=e;b()}}}function onScroll(){if(window.pageYOffset){$$header.classList.add("is-active")}else{$$header.classList.remove("is-active")}}var $$header=document.querySelector("#headerx");window.addEventListener("scroll",throttle(onScroll,25));
-$(document).ready(function(){$('b[name="backgrund"]').before($("#iamgex-backgg").html());$("#iamgex-backgg").html("");$('b[name="coverxz"]').before($("#iamgex-cover").html());$("#iamgex-cover").html("");$('div[name="infromx"]').before($("#cuk-infromx").html());$("#cuk-infromx").html("");$('b[name="labelsxpost"]').before($("#show-labelsxpost").html());$("#show-labelsxpost").html("")});
-var relatedTitles = new Array();
-var relatedTitlesNum = 0;
-var relatedUrls = new Array();
-var thumburl = new Array();
+$(document).ready(function() {
+    $('b[name="coverxz"]').before($("#iamgex-cover").html());
+    $("#iamgex-cover").html("");
+    $('div[name="infromx"]').before($("#cuk-infromx").html());
+    $("#cuk-infromx").html("");
+    $('b[name="labelsxpost"]').before($("#show-labelsxpost").html());
+    $("#show-labelsxpost").html("")
+});
 function related_results_labels_thumbs(h) {
   for (var g = 0; g < h.feed.entry.length; g++) {
     var j = h.feed.entry[g];
